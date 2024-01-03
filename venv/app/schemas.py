@@ -14,6 +14,7 @@ class Post(PostBase): #change the keys here to specify which keys you want to se
     # Post inherit from PostBase the title, content and published
     id: int
     created_at: datetime
+    owner_id: int
     
 
     class Config:
