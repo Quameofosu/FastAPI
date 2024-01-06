@@ -10,11 +10,21 @@ class PostBase(BaseModel): # All the things we require the user to provide durin
 class PostCreate(PostBase):
     pass
 
+class UserOut(BaseModel): #what we send as response when user creates account
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
 class Post(PostBase): #change the keys here to specify which keys you want to send back to the user as response
     # Post inherit from PostBase the title, content and published
     id: int
     created_at: datetime
     owner_id: int
+    owner: UserOut
     
 
     class Config:
@@ -28,13 +38,7 @@ class UserCreate(BaseModel):
      password: str
 # class UserCreate(UserBase):
 #     pass
-class UserOut(BaseModel): #what we send as response when user creates account
-    id: int
-    email: EmailStr
-    created_at: datetime
 
-    class Config:
-        orm_mode = True
 
 class UserLogin(BaseModel):
     email: EmailStr
