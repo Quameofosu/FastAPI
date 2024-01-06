@@ -13,7 +13,7 @@ router = APIRouter(prefix="/posts", tags=["Post"])
 def get_posts(db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # cursor.execute("SELECT * FROM posts;")
     # posts = cursor.fetchall()
-    posts = db.query(models.Post).all()
+    posts = db.query(models.Post).all() # to get all posts by current user, use this filter {filter(models.Post.owner_id == current_user.id).}
     return posts
 
 #-----------------------------------------------------------------------------------------------
@@ -41,6 +41,7 @@ def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends
     if not post:
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
                             detail = f"post with id: {id} was not found")
+    
     return post
 
 #-----------------------------------------------------------------------------------------------
@@ -49,8 +50,11 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depe
     # cursor.execute("DELETE FROM posts WHERE id = %s RETURNING *", (str (id),))
     # deleted_post = cursor.fetchone()
     # conn.commit()
-    post = db.query(models.Post).filter(models.Post.id == id)
-    if post.first() == None:
+    post_query = db.query(models.Post).filter(models.Post.id == id)
+
+    post = post_query.first()
+
+    if post == None:
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
                             detail = f"post with id: {id} does not exist")
     
@@ -58,7 +62,7 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depe
         raise HTTPException(status_code = status.HTTP_403_FORBIDDEN,
                             detail = "Not authorized to perform requested action")
     
-    post.delete(synchronize_session=False)
+    post_query.delete(synchronize_session=False)
     db.commit()
     return Response(status_code= status.HTTP_204_NO_CONTENT)
 
