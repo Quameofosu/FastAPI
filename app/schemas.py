@@ -39,7 +39,7 @@ class Post(
 
 
 class PostOut(PostBase):
-    post: Post
+    Post: Post
     votes: int
 
     class Config:
