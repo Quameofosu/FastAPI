@@ -24,7 +24,11 @@ def get_posts(
         .limit(limit)
         .offset(skip)
         .all()
-    )  # to get all posts by current user, use this filter {filter(models.Post.owner_id == current_user.id).}
+    )
+    results = db.query(models.Post).join(
+        models.Vote, models.Vote.post_id == models.Post.id, isouter=True
+    )
+    # to get all posts by current user, use this filter {filter(models.Post.owner_id == current_user.id).}
     # limit is a query parameter that will limit the posts to 10 in this case
     return posts
 
