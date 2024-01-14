@@ -38,6 +38,11 @@ class Post(
         orm_mode = True
 
 
+class PostOut(PostBase):
+    Post: Post
+    votes: int
+
+
 # ----------------------------------------------------------------------------------
 # class UserBase(BaseModel): #user must provide this during registration
 #     email: EmailStr
