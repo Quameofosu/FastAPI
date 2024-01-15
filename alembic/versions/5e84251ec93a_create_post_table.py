@@ -1,4 +1,4 @@
-"""create post table
+"""create posts table
 
 Revision ID: 5e84251ec93a
 Revises: 
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '5e84251ec93a'
+revision: str = "5e84251ec93a"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
