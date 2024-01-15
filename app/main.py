@@ -10,9 +10,9 @@ from .config import settings
 
 app = FastAPI()
 
+# use origins = ["*"] to make all websites able to talk to the api
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
+    "http://www.manuelofosu.site",
     "http://localhost",
     "http://localhost:8080",
 ]
