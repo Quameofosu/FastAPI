@@ -8,7 +8,10 @@ from .config import settings
 
 # models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(
+    title="Social Media API",
+    summary="A sample backend API.",
+)
 
 # use origins = ["*"] to make all websites able to talk to the api
 origins = [

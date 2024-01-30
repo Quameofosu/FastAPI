@@ -5,11 +5,15 @@ from sqlalchemy import func
 from .. import models, schemas, oauth2
 from ..database import get_db
 
-router = APIRouter(prefix="/posts", tags=["Posts"])
+router = APIRouter(prefix="/posts", tags=["Posts 📩"])
 
 
 # -----------------------------------------------------------------------------------------------
-@router.get("/", response_model=List[schemas.PostOut])
+@router.get(
+    "/",
+    response_model=List[schemas.PostOut],
+    response_description="Get All Posts",
+)
 def get_posts(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
